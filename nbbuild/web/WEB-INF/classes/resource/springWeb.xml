@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+http://www.springframework.org/schema/task  
+http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:component-scan base-package="com.jcg" />
+
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/font-awesome/" mapping="/font-awesome/**" />
+ 	<mvc:annotation-driven />
+	<multipart-config>
+      
+      <max-file-size>20848820</max-file-size>
+      <max-request-size>418018841</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
+ </multipart-config>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/jsp/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+	
+	<!-- <import resource="springBeanConfiguration.xml"/> -->
+
+<bean id="loginDelegate" class="com.jcg.examples.delegate.LoginDelegate">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="DelegateGetMessage" class="com.jcg.examples.delegate.DelegateGetMessage">
+		<property name="getMessage" ref="getMessage"></property>
+	</bean>
+	
+	<bean id="DelegateDeleteMessage" class="com.jcg.examples.delegate.DelegateDeleteMessage">
+		<property name="deleteMessage" ref="deleteMessage"></property>
+	</bean>
+	
+	<bean id="DelegateSendMessage" class="com.jcg.examples.delegate.DelegateSendMessage">
+		<property name="sendMessage" ref="sendMessage"></property>
+	</bean>
+	
+	<bean id="DelegateAddAssignment" class="com.jcg.examples.delegate.DelegateAddAssignment">
+		<property name="addAssignmentClientService" ref="addAssignmentClientImpl"></property>
+	</bean>
+
+	
+
+
+	<bean id="userService" class="com.jcg.examples.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="getMessage" class="com.jcg.examples.service.impl.GetMessageImpl">
+		<property name="userDao" ref="userDao"></property>
+		<property name="showAssignmentDao" ref="showAssignmentDao"></property>
+	</bean>
+	
+	<bean id="deleteMessage" class="com.jcg.examples.service.impl.DeleteMessageImpl">
+		<property name="deleteMessageDao" ref="deleteMessageDao"></property>
+	</bean>
+	
+	<bean id="sendMessage" class="com.jcg.examples.service.impl.SendMessageImpl">
+		<property name="sendMessageDao" ref="sendMessageDao"></property>
+	</bean>
+	
+	<bean id="addAssignmentClientImpl" class="com.jcg.examples.service.impl.AddAssignmentClientImpl">
+		<property name="addAssignmentDao" ref="addAssignmentDao"></property>
+	
+	</bean>
+	
+	
+	
+	
+	
+	
+	<bean name="userDao" class="com.jcg.examples.dao.impl.UserDaoImpl">
+		
+	</bean>
+	
+	<bean name="deleteMessageDao" class="com.jcg.examples.dao.impl.DeleteMessageDaoImpl">
+	
+	</bean>
+	
+	<bean name="sendMessageDao" class="com.jcg.examples.dao.impl.SendMessageDaoImpl">
+	
+	</bean>
+	
+	<bean name="addAssignmentDao" class="com.jcg.examples.dao.impl.AddAssignmentDaoImpl">
+	
+	</bean>
+		
+
+</beans>
+

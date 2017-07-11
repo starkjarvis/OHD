@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/task  
+http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<context:component-scan base-package="com.jcg" />
+
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/fonts/" mapping="/fonts/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/vendor/" mapping="/vendor/**" />
+	<mvc:resources location="/less/" mapping="/less/**" />
+	<mvc:resources location="/assets/" mapping="/assets/**" />
+	<mvc:resources location="/font-awesome/" mapping="/font-awesome/**" />
+ 	<mvc:annotation-driven />
+	
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/jsp/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+	
+	<!-- <import resource="springBeanConfiguration.xml"/> -->
+
+<bean id="loginDelegate" class="com.jcg.examples.delegate.LoginDelegate">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<bean id="DelegateGetMessage" class="com.jcg.examples.delegate.DelegateGetMessage">
+		<property name="getMessage" ref="getMessage"></property>
+	</bean>
+	
+	<bean id="DelegateDeleteMessage" class="com.jcg.examples.delegate.DelegateDeleteMessage">
+		<property name="deleteMessage" ref="deleteMessage"></property>
+		
+	</bean>
+	
+	<bean id="DelegateSendMessage" class="com.jcg.examples.delegate.DelegateSendMessage">
+		<property name="sendMessage" ref="sendMessage"></property>
+	</bean>
+	
+	<bean id="DelegateShowAssignment" class="com.jcg.examples.delegate.DelegateShowAssignment">
+		<property name="showAssignmentClientService" ref="showAssignmentClientService"></property>
+		<property name="showAssignmentAdminService" ref="showAssignmentAdminService"></property>
+		
+	</bean>
+	
+	<bean id="DelegateAddAssignment" class="com.jcg.examples.delegate.DelegateAddAssignment">
+		<property name="addAssignmentClientService" ref="addAssignmentClientImpl"></property>
+	</bean>
+
+	<bean id="DelegateUpdateAssignment" class="com.jcg.examples.delegate.DelegateUpdateAssignment">
+		<property name="updateAssignmentService" ref="updateAssignmentService"></property>
+	</bean>
+	
+	<bean id="DelegateAssignJobs" class="com.jcg.examples.delegate.DelegateAssignJobs">
+		<property name="assignJobsService" ref="assignJobsService"></property>
+	</bean>
+	
+	<bean id="DelegateShowAssignedJobs" class="com.jcg.examples.delegate.DelegateShowAssignedJobs">
+		<property name="showAssignedJobsService" ref="showAssignedJobsService"></property>
+	</bean>
+	
+	<bean id="DelegateDeleteAssignedJobs" class="com.jcg.examples.delegate.DelegateDeleteAssignedJobs">
+		<property name="deleteAssignedJobsService" ref="deleteAssignedJobsService"></property>
+	</bean>
+	
+	<bean id="DelegateCirculateNotice" class="com.jcg.examples.delegate.DelegateCirculateNotice">
+		<property name="circulateNoticeService" ref="circulateNoticeService"></property>
+	</bean>
+	
+	<bean id="DelegateShowNotice" class="com.jcg.examples.delegate.DelegateShowNotice">
+		<property name="showNoticeService" ref="showNoticeService"></property>
+	</bean>
+	
+	<bean id="DelegateDeleteNotice" class="com.jcg.examples.delegate.DelegateDeleteNotice">
+		<property name="deleteNoticeService" ref="deleteNoticeService"></property>
+	</bean>
+	
+	<bean id="DelegateShowRegistrationTable" class="com.jcg.examples.delegate.DelegateShowRegistrationTable">
+		<property name="showRegistrationTableService" ref="showRegistrationTableService"></property>
+	</bean>
+	
+	<bean id="DelegateSentMessage" class="com.jcg.examples.delegate.DelegateSentMessage">
+		<property name="sentMessageService" ref="sentMessageService"></property>
+	</bean>
+	
+	<bean id="DelegateChangePassword" class="com.jcg.examples.delegate.DelegateChangePassword">
+		<property name="changePasswordService" ref="changePasswordService"></property>
+	</bean>
+
+
+
+
+
+
+	<bean id="userService" class="com.jcg.examples.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="getMessage" class="com.jcg.examples.service.impl.GetMessageImpl">
+		<property name="userDao" ref="userDao"></property>
+<!-- 		<property name="showAssignmentDao" ref="showAssignmentDao"></property>-->	
+	</bean>
+	
+	<bean id="deleteMessage" class="com.jcg.examples.service.impl.DeleteMessageImpl">
+		<property name="deleteMessageDao" ref="deleteMessageDao"></property>
+		<property name="deleteAssignmentDao" ref="deleteAssignmentDao"></property>
+	</bean>
+	
+	<bean id="sendMessage" class="com.jcg.examples.service.impl.SendMessageImpl">
+		<property name="sendMessageDao" ref="sendMessageDao"></property>
+	</bean>
+	
+	<bean id="showAssignmentClientService" class="com.jcg.examples.service.impl.ShowAssignmentClientServiceImpl">
+		<property name="showAssignmentDao" ref="showAssignmentDao"></property>
+	</bean>
+	
+	<bean id="showAssignmentAdminService" class="com.jcg.examples.service.impl.ShowAssignmentAdminServiceImpl">
+		<property name="showAssignmentAdminDao" ref="showAssignmentAdminDao"></property>
+	</bean>
+	
+	<bean id="addAssignmentClientImpl" class="com.jcg.examples.service.impl.AddAssignmentClientImpl">
+		<property name="addAssignmentDao" ref="addAssignmentDao"></property>
+	
+	</bean>
+	
+	<bean id="updateAssignmentService" class="com.jcg.examples.service.impl.UpdateAssignmentServiceImpl">
+		<property name="updateAssignmentDao" ref="updateAssignmentDao"></property>
+	</bean>
+	
+	<bean id="assignJobsService" class="com.jcg.examples.service.impl.AssignJobsServiceImpl">
+		<property name="assignJobsDao" ref="assignJobsDao"></property>
+	</bean>
+	
+	<bean id="showAssignedJobsService" class="com.jcg.examples.service.impl.ShowAssignedJobsServiceImpl">
+		<property name="showAssignedJobsDao" ref="showAssignedJobsDao"></property>
+	</bean>
+	
+	<bean id="deleteAssignedJobsService" class="com.jcg.examples.service.impl.DeleteAssignedJobsServiceImpl">
+		<property name="deleteAssignedJobsDao" ref="deleteAssignedJobsDao"></property>
+	</bean>
+	
+	<bean id="circulateNoticeService" class="com.jcg.examples.service.impl.CirculateNoticeServiceImpl">
+		<property name="circulateNoticeDao" ref="circulateNoticeDao"></property>
+	</bean>
+	
+	<bean id="showNoticeService" class="com.jcg.examples.service.impl.ShowNoticeServiceImpl">
+		<property name="showNoticeDao" ref="showNoticeDao"></property>
+	</bean>
+	
+	<bean id="deleteNoticeService" class="com.jcg.examples.service.impl.DeleteNoticeServiceImpl">
+		<property name="deleteNoticeDao" ref="deleteNoticeDao"></property>
+	</bean>
+	
+	<bean id="showRegistrationTableService" class="com.jcg.examples.service.impl.ShowRegistrationTableServiceImpl">
+		<property name="showRegistrationTableDao" ref="showRegistrationTableDao"></property>
+	</bean>
+	
+	<bean id="sentMessageService" class="com.jcg.examples.service.impl.SentMessageServiceImpl">
+		<property name="sentMessageDao" ref="sentMessageDao"></property>
+	</bean>
+	
+	<bean id="changePasswordService" class="com.jcg.examples.service.impl.ChangePasswordServiceImpl">
+		<property name="changePasswordDao" ref="changePasswordDao"></property>
+	</bean>
+	
+	
+	
+	
+	
+	<bean name="userDao" class="com.jcg.examples.dao.impl.UserDaoImpl" />
+	
+	<bean name="deleteMessageDao" class="com.jcg.examples.dao.impl.DeleteMessageDaoImpl" />
+	
+	<bean name="deleteAssignmentDao" class="com.jcg.examples.dao.impl.DeleteAssignmentDaoImpl" />
+	
+	<bean name="sendMessageDao" class="com.jcg.examples.dao.impl.SendMessageDaoImpl" />
+	
+	<bean name="addAssignmentDao" class="com.jcg.examples.dao.impl.AddAssignmentDaoImpl" />
+	
+	<bean name="showAssignmentDao" class="com.jcg.examples.dao.impl.ShowAssignmentClientDaoImpl" />
+	
+	<bean name="showAssignmentAdminDao" class="com.jcg.examples.dao.impl.ShowAssignmentDaoImpl" />
+
+	<bean name="updateAssignmentDao" class="com.jcg.examples.dao.impl.UpdateAssignmentDaoImpl" />
+
+	<bean name="assignJobsDao" class="com.jcg.examples.dao.impl.AssignJobsDaoImpl" />
+	
+	<bean name="showAssignedJobsDao" class="com.jcg.examples.dao.impl.ShowAssignedJobsDaoImpl" />
+	
+	<bean name="deleteAssignedJobsDao" class="com.jcg.examples.dao.impl.DeleteAssignedJobsDaoImpl" />
+	
+	<bean name="circulateNoticeDao" class="com.jcg.examples.dao.impl.CirculateNoticeDaoImpl" />
+	
+	<bean name="showNoticeDao" class="com.jcg.examples.dao.impl.ShowNoticeDaoImpl" />
+	
+	<bean name="deleteNoticeDao" class="com.jcg.examples.dao.impl.DeleteNoticeDaoImpl" />
+	
+	<bean name="showRegistrationTableDao" class="com.jcg.examples.dao.impl.ShowRegistrationTableDaoImpl" />
+
+	<bean name="sentMessageDao" class="com.jcg.examples.dao.impl.SentMessageDaoImpl" />
+	
+	<bean name="changePasswordDao" class="com.jcg.examples.dao.impl.ChangePasswordDaoImpl" />
+
+</beans>
+
